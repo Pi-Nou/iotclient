@@ -1,0 +1,9 @@
+.title{
+    text-align: left;
+    font-size:20px;
+    margin-left: 10px;
+}
+.block{
+    border-color: black;
+    border-style: solid;
+}
