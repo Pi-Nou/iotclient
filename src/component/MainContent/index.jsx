@@ -4,6 +4,7 @@ import {Route, Switch,Redirect} from 'react-router-dom'
 import DeviceRoute from "../../pages/map/index"
 import Device from "../../pages/device/index"
 import HomePage from "../../pages/home/index"
+import BMap from "../../pages/map/bmap"
 
 class MainContent extends React.Component {
 	render() {
@@ -12,7 +13,7 @@ class MainContent extends React.Component {
 				<Switch>
                     <Route path="/" exact render={() => <Redirect to="/home"/>}/>
 					<Route exact path='/home' component={HomePage}/>
-					<Route exact path='/home/map' component={DeviceRoute}/>
+					<Route exact path='/home/map' component={BMap}/>
 					<Route path='/home/device' component={Device}/>
 				</Switch>
 			</div>

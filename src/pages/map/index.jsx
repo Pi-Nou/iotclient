@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, NavigationControl, Polyline} from 'react-bmap'
+import {Map, NavigationControl, Polyline,InfoWindow} from 'react-bmap'
 import { Tag, Divider } from 'antd';
 import axios from 'axios';
 
@@ -111,6 +111,7 @@ class DeviceRoute extends React.Component{
                 <div id="map" style={{width:"80%", margin:"auto"}}>
                     <Map center={{lng: 120.402544, lat: 30.258216}} zoom="11" style={{height:700}}>
                         <NavigationControl /> 
+                        <InfoWindow position={{lng: 120.402544, lat: 30.258216}} text="信息窗口内容" title="信息窗口标题"/>
                         {this.getRoute()}
                     </Map>
                 </div>

@@ -27,7 +27,13 @@
     <title>物联网应用网站</title>
   </head>
   <body>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=gt9sIbtT8yqIwcyiwkxm4UU5oo70RljR"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&type=webgl&ak=gt9sIbtT8yqIwcyiwkxm4UU5oo70RljR"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js"></script>
+    <script>
+      window.BMapGL = BMapGL
+      window.BMapGLLib = BMapGLLib
+      window.BMap = BMap
+    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
