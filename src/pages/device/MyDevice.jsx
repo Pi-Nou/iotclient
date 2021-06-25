@@ -219,10 +219,10 @@ class MyDevice extends React.Component {
           console.log(res)
           // 添加成功
           if(res.data.code === 200){
-              alert("添加成功")
+            message.success('添加成功');
           }
           else if(res.data.code === 400){
-              alert("不能重复添加同一个设备")
+            message.info("不能重复添加同一个设备")
           }
           else if(res.data.code === "50000"){
             window.localStorage.clear()

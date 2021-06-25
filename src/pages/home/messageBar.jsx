@@ -3,7 +3,6 @@ import React from 'react'
 import * as echarts from 'echarts';
 import axios from 'axios';
 
-
 class MessageBar extends React.Component {
 
     componentDidMount(){        
@@ -12,45 +11,49 @@ class MessageBar extends React.Component {
     }
 
     drawChart = () => {
-        var myChart = echarts.init(document.getElementById('message'));
-
-        axios.defaults.baseURL = 'http://localhost:8989';
-        axios.get('/message/getMessageCount', {
-            params: { userID: window.localStorage.getItem("id") },
-            headers: {token: window.localStorage.getItem("token") }
-            }).then(res=>{
-                if(res.data.code === 200){
-                    let legend = []
-                    let xAxis = []
-                    let series = []
-                    
-                    for(var key in res.data.payload) {
-                        if (key === "date"){
-                            xAxis = res.data.payload[key]
-                        }else{
-                            legend.push(key)
-                            series.push({
-                                name: key,
-                                type: 'bar',
-                                data: res.data.payload[key]
-                            })
+        let dom = document.getElementById('message')
+        if (dom) {
+            var myChart = echarts.init(document.getElementById('message'));
+            
+            axios.defaults.baseURL = 'http://localhost:8989';
+            axios.get('/message/getMessageCount', {
+                params: { userID: window.localStorage.getItem("id") },
+                headers: {token: window.localStorage.getItem("token") }
+                }).then(res=>{
+                    if(res.data.code === 200){
+                        let legend = []
+                        let xAxis = []
+                        let series = []
+                        
+                        for(var key in res.data.payload) {
+                            if (key === "date"){
+                                xAxis = res.data.payload[key]
+                            }else{
+                                legend.push(key)
+                                series.push({
+                                    name: key,
+                                    type: 'bar',
+                                    data: res.data.payload[key]
+                                })
+                            }
                         }
+
+                        var option = {
+                            legend: {data: legend},
+                            tooltip: {},
+                            xAxis: {data: xAxis},
+                            yAxis: {},
+                            series: series
+                        };
+                        
+                        myChart.setOption(option,true)
+
+                    } else if(res.data.code === "50000"){
+                        window.localStorage.clear()
+                        window.location.href = '/login' // 注销则跳转到登录
                     }
-
-                    var option = {
-                        legend: {data: legend},
-                        tooltip: {},
-                        xAxis: {data: xAxis},
-                        yAxis: {},
-                        series: series
-                    };
-
-                    myChart.setOption(option,true)
-                } else if(res.data.code === "50000"){
-                    window.localStorage.clear()
-                    window.location.href = '/login' // 注销则跳转到登录
-                }
-            });
+                });
+        }
     }
 
     render() {
