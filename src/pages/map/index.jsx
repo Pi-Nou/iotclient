@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, NavigationControl, Polyline,InfoWindow} from 'react-bmap'
+import {Map, NavigationControl, Polyline, Circle} from 'react-bmap'
 import { Tag, Divider } from 'antd';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ class DeviceRoute extends React.Component{
 
     componentDidMount(){
         this.getPosition()
-        setInterval(this.getPosition, 1000*30)
+        setInterval(this.getPosition, 1000*10)
     }
 
     getRoute = () =>{
@@ -26,9 +26,17 @@ class DeviceRoute extends React.Component{
 
         for(let i=0; i<devices.length; i++){
             let color = this.state.colors[i]
+            let path = paths[devices[i]]
 
             if(this.state.selectedTags.includes(devices[i])){
-                elements.push(<Polyline strokeColor= {color} path={paths[devices[i]]} />);}
+                elements.push(<Polyline strokeColor= {color} path={path} />);
+                elements.push(<Circle 
+                    center={path[0]} 
+                    fillColor={color}
+                    strokeColor='white' 
+                    radius="1000"
+                />)
+            }
         }
 
         return elements
@@ -102,7 +110,7 @@ class DeviceRoute extends React.Component{
             <div style={{display:"flex"}}>
                 <div style={{"margin-left":"20px", width:"10%"}}>
                     <Divider orientation="left">设备列表</Divider>
-                    <p> 点击标签可以隐藏/显示对应颜色的设备轨迹线 </p>
+                    <p style = {{fontSize:5, color:'gray'}}> 点击标签可以隐藏/显示对应颜色的设备轨迹线 </p>
                     <div id="tags" style={{"margin-left":"20px"}}>
                         {this.getTags()}
                     </div>
